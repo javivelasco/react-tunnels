@@ -1,6 +1,6 @@
 {
   "name": "react-tunnels",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A easy way to communicate rendering logic and data to ancestor components in React.",
   "main": "./lib/index.js",
   "scripts": {
@@ -71,11 +71,19 @@
       "semi": 0,
       "quotes": 0,
       "comma-dangle": 0,
-      "curly": [2, "multi-line"],
+      "curly": [
+        2,
+        "multi-line"
+      ],
       "arrow-parens": 0,
       "class-methods-use-this": 0,
       "symbol-description": 0,
-      "no-unused-vars": [2, { "varsIgnorePattern": "^_+$" }],
+      "no-unused-vars": [
+        2,
+        {
+          "varsIgnorePattern": "^_+$"
+        }
+      ],
       "import/no-extraneous-dependencies": 0,
       "no-confusing-arrow": 0,
       "no-else-return": 0,
