@@ -21,7 +21,7 @@ Define a `TunnelPlaceholder` identified by an `id` and decide what properties ar
 Define a placeholder without any render function so it will render any children coming from `Tunnel` components.
 
 ```jsx
-import { TunnelsProvider, TunnelPlaceholder, Tunnel } from 'preact-slots'
+import { TunnelsProvider, TunnelPlaceholder, Tunnel } from 'react-tunnels'
 
 render(
   <TunnelsProvider>
