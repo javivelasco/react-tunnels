@@ -20,7 +20,7 @@ Define a `TunnelPlaceholder` identified by an `id` and decide what properties ar
 
 Define a placeholder without any render function so it will render any children coming from `Tunnel` components.
 
-```js
+```jsx
 import { TunnelsProvider, TunnelPlaceholder, Tunnel } from 'preact-slots'
 
 render(
@@ -37,7 +37,7 @@ render(
 
 ### A more complex example: building a Breadcrumb
 
-```js
+```jsx
 render(
   <TunnelsProvider>
     {/* This will render the breadcrumb */}
