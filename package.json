@@ -1,0 +1,93 @@
+{
+  "name": "react-tunnels",
+  "version": "1.0.0",
+  "description": "A easy way to communicate rendering logic and data to ancestor components in React.",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "babel ./src --out-dir ./lib",
+    "build:watch": "babel ./src --out-dir ./lib --watch",
+    "lint": "eslint src tests",
+    "prettier": "prettier --write \"{src,tests}/**/*.js\"",
+    "prepublish": "rimraf lib && yarn build",
+    "test": "jest"
+  },
+  "keywords": [
+    "react",
+    "react-tunnels",
+    "portals",
+    "components"
+  ],
+  "author": "Javi Velasco <javier.velasco86@gmail.com> (http://javivelasco.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.1.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.16.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.5.0",
+    "eslint-plugin-react": "^7.6.1",
+    "jest": "^22.1.4",
+    "prettier": "^1.10.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "react": "^0.14.9 || ^15.3.0 || ^16.0.0"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-2",
+      "react"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "parser": "babel-eslint",
+    "extends": [
+      "plugin:react/recommended"
+    ],
+    "rules": {
+      "semi": 0,
+      "quotes": 0,
+      "comma-dangle": 0,
+      "curly": [2, "multi-line"],
+      "arrow-parens": 0,
+      "class-methods-use-this": 0,
+      "symbol-description": 0,
+      "no-unused-vars": [2, { "varsIgnorePattern": "^_+$" }],
+      "import/no-extraneous-dependencies": 0,
+      "no-confusing-arrow": 0,
+      "no-else-return": 0,
+      "react/sort-comp": 0,
+      "react/jsx-filename-extension": 0,
+      "no-prototype-builtins": 0,
+      "no-duplicate-imports": 0,
+      "prettier/prettier": 2
+    },
+    "plugins": [
+      "prettier",
+      "react"
+    ]
+  }
+}
