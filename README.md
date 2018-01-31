@@ -70,7 +70,7 @@ const Breadcrumb = ({ children, url }) => (
 ### Similar Libraries
 
 - [React Slot Fill](https://github.com/camwest/react-slot-fill): [@camwest](https://github.com/camwest) has built a similar project but with a different API and a bit more limited use cases. The main difference is that you can't pass content to a placeholder from multiple entry points while react-tunnels does it by passing an array with the props defined by each tunnel to the render function of the placeholder. For simple cases, it is pretty similar.
-- [React Slots](https://github.com/developit/preact-slots): A library similar to React Slot Fill but for [Preact](https://github.com/developit/preact) developed by [Jason Miller](https://twitter.com/_developit).
+- [Preact Slots](https://github.com/developit/preact-slots): A library similar to React Slot Fill but for [Preact](https://github.com/developit/preact) developed by [Jason Miller](https://twitter.com/_developit).
 
 ## License
 
