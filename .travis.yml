@@ -4,4 +4,4 @@ cache:
   directories:
     - node_modules
 node_js:
-  - "latest"
+  - "9"
