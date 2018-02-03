@@ -1,8 +1,10 @@
 import TunnelState from '../src/TunnelState'
 
 const TUNNEL_ID = 'GroompyTunnel'
-const ITEM_ID = 'GroomyItem'
+const ITEM_ID = 'GroompyItem'
+const ITEM_ID2 = 'GroompyItem2'
 const props = { message: 'Aihop!' }
+const props2 = { message: 'Auhip!' }
 
 describe('TunnelState', () => {
   it('calls listeners when setting props and there are listeners', () => {
@@ -48,5 +50,12 @@ describe('TunnelState', () => {
     const state = new TunnelState()
     state.setTunnelProps(TUNNEL_ID, ITEM_ID, props)
     expect(state.getTunnelProps(TUNNEL_ID)).toEqual(props)
+  })
+
+  it('allows to retrieve an array of props when there are multiple items', () => {
+    const state = new TunnelState()
+    state.setTunnelProps(TUNNEL_ID, ITEM_ID, props)
+    state.setTunnelProps(TUNNEL_ID, ITEM_ID2, props2)
+    expect(state.getTunnelProps(TUNNEL_ID)).toEqual([props, props2])
   })
 })
