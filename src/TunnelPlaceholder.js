@@ -5,6 +5,7 @@ class TunnelPlaceholder extends Component {
   static propTypes = {
     children: PropTypes.func,
     id: PropTypes.string.isRequired,
+    multiple: PropTypes.bool,
   }
 
   static contextTypes = {
@@ -29,30 +30,26 @@ class TunnelPlaceholder extends Component {
 
   render() {
     const { tunnelState } = this.context
-    const { id, children: renderChildren } = this.props
+    const { id, children: renderChildren, multiple } = this.props
     const tunnelProps = tunnelState.getTunnelProps(id)
 
-    if (Array.isArray(tunnelProps)) {
-      if (renderChildren) {
-        return createElement(renderChildren, { items: tunnelProps })
-      }
-
-      if (tunnelProps.length > 0) {
-        return <Fragment>{tunnelProps.map(props => props.children)}</Fragment>
-      }
-    } else {
-      if (renderChildren) {
+    if (renderChildren) {
+      if (Array.isArray(tunnelProps) || multiple) {
+        return !tunnelProps
+          ? createElement(renderChildren, { items: [] })
+          : createElement(renderChildren, {
+              items: Array.isArray(tunnelProps) ? tunnelProps : [tunnelProps],
+            })
+      } else {
         return createElement(renderChildren, tunnelProps || {})
       }
-
-      if (!tunnelProps) {
-        return null
-      }
-
-      return <Fragment>{tunnelProps.children}</Fragment>
     }
 
-    return null
+    if (!tunnelProps) {
+      return null
+    }
+
+    return <Fragment>{tunnelProps.children}</Fragment>
   }
 }
 

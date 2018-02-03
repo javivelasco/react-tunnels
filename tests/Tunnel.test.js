@@ -22,7 +22,7 @@ describe('Tunnel', () => {
           <TunnelPlaceholder id={TUNNEL_ID}>
             {({ message }) => <span>{message}</span>}
           </TunnelPlaceholder>
-          <Tunnel id={TUNNEL_ID} props={props} />
+          <Tunnel id={TUNNEL_ID} {...props} />
         </div>
       </TunnelProvider>,
     )
@@ -43,16 +43,39 @@ describe('Tunnel', () => {
     assertTunnelPlaceholderContent(wrapper, props.message)
   })
 
-  it('should render passing a component', () => {
+  it('should render multiple tunnels props when there is a multiple prop', () => {
     const wrapper = mount(
       <TunnelProvider>
         <div>
-          <TunnelPlaceholder id={TUNNEL_ID} component={Msg} />
-          <Tunnel id={TUNNEL_ID} props={props} />
+          <TunnelPlaceholder id={TUNNEL_ID} multiple>
+            {({ items = [] }) =>
+              items.map((props, i) => <div key={i}>{props.message}</div>)
+            }
+          </TunnelPlaceholder>
+          <Tunnel id={TUNNEL_ID} message="Foo" />
         </div>
       </TunnelProvider>,
     )
-    assertTunnelPlaceholderContent(wrapper, props.message)
+    expect(wrapper.contains([<div key={0}>Foo</div>])).toEqual(true)
+  })
+
+  it('should render multiple tunnels props when there are many tunnels', () => {
+    const wrapper = mount(
+      <TunnelProvider>
+        <div>
+          <TunnelPlaceholder id={TUNNEL_ID}>
+            {({ items = [] }) =>
+              items.map((props, i) => <div key={i}>{props.message}</div>)
+            }
+          </TunnelPlaceholder>
+          <Tunnel id={TUNNEL_ID} message="Foo" />
+          <Tunnel id={TUNNEL_ID} message="Bar" />
+        </div>
+      </TunnelProvider>,
+    )
+    expect(
+      wrapper.contains([<div key={0}>Foo</div>, <div key={1}>Bar</div>]),
+    ).toEqual(true)
   })
 
   describe('given Tunnel is not defined', () => {
@@ -65,17 +88,6 @@ describe('Tunnel', () => {
         </TunnelProvider>,
       )
       assertTunnelPlaceholderContent(wrapper, 'Empty')
-    })
-
-    it('should render TunnelPlaceholder component passing empty props', () => {
-      const wrapper = mount(
-        <TunnelProvider>
-          <div>
-            <TunnelPlaceholder id={TUNNEL_ID} component={Msg} />
-          </div>
-        </TunnelProvider>,
-      )
-      assertTunnelPlaceholderContent(wrapper, 'defaultMessage')
     })
 
     it('should render empty is TunnelPlaceholder does not have children', () => {
@@ -118,7 +130,7 @@ describe('Tunnel', () => {
       assertTunnelPlaceholderContent(wrapper, msg1)
     })
 
-    it.only('should update TunnelPlaceholder when Tunnel is unmounted', () => {
+    it('should update TunnelPlaceholder when Tunnel is unmounted', () => {
       const wrapper = mount(<Component msg={msg1} visible />)
       assertTunnelPlaceholderContent(wrapper, msg1)
       wrapper.setProps({ visible: false })
