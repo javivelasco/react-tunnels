@@ -53,7 +53,7 @@ const Breadcrumbs = () => (
 )
 
 const Breadcrumb = ({ children, url }) => (
-  <Tunnel id="breadcrumb" url={url}>
+  <Tunnel id="breadcrumb" href={url}>
     {children}
   </Tunnel>
 )
