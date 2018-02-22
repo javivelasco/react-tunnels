@@ -9,10 +9,16 @@ configure({ adapter: new Adapter() })
 const TUNNEL_ID = 'GroompyTunnel'
 const props = { message: 'Aihop!' }
 
-const Msg = ({ message }) => (
-  <div className="msg">{message || 'defaultMessage'}</div>
-)
-Msg.propTypes = { message: PropTypes.string }
+class Msg extends React.Component {
+  componentWillMount() {
+    this.props.willMount && this.props.willMount()
+  }
+  render() {
+    const { message } = this.props
+    return <div className="msg">{message || 'defaultMessage'}</div>
+  }
+}
+Msg.propTypes = { message: PropTypes.string, willMount: PropTypes.func }
 
 describe('Tunnel', () => {
   it('should render a tunnel passing props', () => {
@@ -20,7 +26,7 @@ describe('Tunnel', () => {
       <TunnelProvider>
         <div>
           <TunnelPlaceholder id={TUNNEL_ID}>
-            {({ message }) => <span>{message}</span>}
+            {({ message }) => <Msg message={message} />}
           </TunnelPlaceholder>
           <Tunnel id={TUNNEL_ID} {...props} />
         </div>
@@ -35,7 +41,7 @@ describe('Tunnel', () => {
         <div>
           <TunnelPlaceholder id={TUNNEL_ID} />
           <Tunnel id={TUNNEL_ID}>
-            <span>{props.message}</span>
+            <Msg message={props.message} />
           </Tunnel>
         </div>
       </TunnelProvider>,
@@ -83,7 +89,7 @@ describe('Tunnel', () => {
       const wrapper = mount(
         <TunnelProvider>
           <TunnelPlaceholder id={TUNNEL_ID}>
-            {({ message }) => <span>{message || 'Empty'}</span>}
+            {({ message }) => <Msg message={message || 'Empty'} />}
           </TunnelPlaceholder>
         </TunnelProvider>,
       )
@@ -102,12 +108,14 @@ describe('Tunnel', () => {
 
   describe('update lifecycle', () => {
     const Component = (
-      { msg, visible }, //eslint-disable-line
+      { msg, visible, willMount }, //eslint-disable-line
     ) => (
       <TunnelProvider>
         <div>
           <TunnelPlaceholder id={TUNNEL_ID}>
-            {({ message }) => <span>{message || 'Empty'}</span>}
+            {({ message }) => (
+              <Msg message={message || 'Empty'} willMount={willMount} />
+            )}
           </TunnelPlaceholder>
           {visible && <Tunnel id={TUNNEL_ID} message={msg} />}
         </div>
@@ -136,9 +144,18 @@ describe('Tunnel', () => {
       wrapper.setProps({ visible: false })
       assertTunnelPlaceholderContent(wrapper, 'Empty')
     })
+
+    it('should keep children mounted on re-render', () => {
+      let mountSpy = jest.fn()
+      const wrapper = mount(
+        <Component msg={msg1} visible willMount={mountSpy} />,
+      )
+      wrapper.setProps({ msg: msg2 })
+      expect(mountSpy).toHaveBeenCalledTimes(1)
+    })
   })
 
   function assertTunnelPlaceholderContent(wrapper, expectedContent) {
-    expect(wrapper.find(TunnelPlaceholder).text()).toEqual(expectedContent)
+    expect(wrapper.find(Msg).text()).toEqual(expectedContent)
   }
 })

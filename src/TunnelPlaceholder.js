@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { createElement, Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 
 class TunnelPlaceholder extends Component {
   static propTypes = {
@@ -36,12 +36,12 @@ class TunnelPlaceholder extends Component {
     if (renderChildren) {
       if (Array.isArray(tunnelProps) || multiple) {
         return !tunnelProps
-          ? createElement(renderChildren, { items: [] })
-          : createElement(renderChildren, {
+          ? renderChildren({ items: [] })
+          : renderChildren({
               items: Array.isArray(tunnelProps) ? tunnelProps : [tunnelProps],
             })
       } else {
-        return createElement(renderChildren, tunnelProps || {})
+        return renderChildren(tunnelProps || {})
       }
     }
 
