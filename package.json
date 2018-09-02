@@ -1,6 +1,6 @@
 {
   "name": "react-tunnels",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A easy way to communicate rendering logic and data to ancestor components in React.",
   "main": "./lib/index.js",
   "repository": "javivelasco/react-tunnels",
