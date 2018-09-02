@@ -4,13 +4,15 @@ import React, { Component, Fragment } from 'react'
 class TunnelPlaceholder extends Component {
   static propTypes = {
     children: PropTypes.func,
-    component: PropTypes.element,
+    component: PropTypes.oneOfType([PropTypes.node, PropTypes.symbol]),
     id: PropTypes.string.isRequired,
     multiple: PropTypes.bool,
   }
+
   static defaultProps = {
     component: Fragment,
   }
+
   static contextTypes = {
     tunnelState: PropTypes.object,
   }
@@ -33,7 +35,12 @@ class TunnelPlaceholder extends Component {
 
   render() {
     const { tunnelState } = this.context
-    const { id, children: renderChildren, component: Tag, multiple } = this.props
+    const {
+      id,
+      children: renderChildren,
+      component: Tag,
+      multiple,
+    } = this.props
     const tunnelProps = tunnelState.getTunnelProps(id)
 
     if (renderChildren) {

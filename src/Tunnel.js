@@ -18,8 +18,8 @@ class Tunnel extends Component {
     this.setTunnelProps(this.props)
   }
 
-  componentWillUpdate(nextProps) {
-    this.setTunnelProps(nextProps)
+  componentDidUpdate() {
+    this.setTunnelProps(this.props)
   }
 
   componentWillUnmount() {

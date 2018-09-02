@@ -10,15 +10,15 @@ const TUNNEL_ID = 'GroompyTunnel'
 const props = { message: 'Aihop!' }
 
 class Msg extends React.Component {
-  componentWillMount() {
-    this.props.willMount && this.props.willMount()
+  componentDidMount() {
+    this.props.didMount && this.props.didMount()
   }
   render() {
     const { message } = this.props
     return <div className="msg">{message || 'defaultMessage'}</div>
   }
 }
-Msg.propTypes = { message: PropTypes.string, willMount: PropTypes.func }
+Msg.propTypes = { message: PropTypes.string, didMount: PropTypes.func }
 
 describe('Tunnel', () => {
   it('should render a tunnel passing props', () => {
@@ -108,13 +108,13 @@ describe('Tunnel', () => {
 
   describe('update lifecycle', () => {
     const Component = (
-      { msg, visible, willMount }, //eslint-disable-line
+      { msg, visible, didMount }, //eslint-disable-line
     ) => (
       <TunnelProvider>
         <div>
           <TunnelPlaceholder id={TUNNEL_ID}>
             {({ message }) => (
-              <Msg message={message || 'Empty'} willMount={willMount} />
+              <Msg message={message || 'Empty'} didMount={didMount} />
             )}
           </TunnelPlaceholder>
           {visible && <Tunnel id={TUNNEL_ID} message={msg} />}
@@ -148,7 +148,7 @@ describe('Tunnel', () => {
     it('should keep children mounted on re-render', () => {
       let mountSpy = jest.fn()
       const wrapper = mount(
-        <Component msg={msg1} visible willMount={mountSpy} />,
+        <Component msg={msg1} visible didMount={mountSpy} />,
       )
       wrapper.setProps({ msg: msg2 })
       expect(mountSpy).toHaveBeenCalledTimes(1)
