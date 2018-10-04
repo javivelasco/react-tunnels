@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react'
 class TunnelPlaceholder extends Component {
   static propTypes = {
     children: PropTypes.func,
-    component: PropTypes.func,
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.symbol]),
     id: PropTypes.string.isRequired,
     multiple: PropTypes.bool,
   }
