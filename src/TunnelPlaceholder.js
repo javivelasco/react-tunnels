@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
+import { TunnelContext } from './context'
 
 class TunnelPlaceholder extends Component {
   static propTypes = {
@@ -13,13 +14,12 @@ class TunnelPlaceholder extends Component {
     component: Fragment,
   }
 
-  static contextTypes = {
-    tunnelState: PropTypes.object,
-  }
+  static contextType = TunnelContext
 
   componentDidMount() {
     const { id } = this.props
     const { tunnelState } = this.context
+
     tunnelState.subscribe(id, this.handlePropsChange)
   }
 
@@ -35,6 +35,7 @@ class TunnelPlaceholder extends Component {
 
   render() {
     const { tunnelState } = this.context
+
     const {
       id,
       children: renderChildren,
