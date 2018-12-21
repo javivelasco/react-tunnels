@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 import uniqueId from './uniqueId'
+import { TunnelContext } from './context'
 
 class Tunnel extends Component {
   static propTypes = {
@@ -8,9 +9,7 @@ class Tunnel extends Component {
     render: PropTypes.func,
   }
 
-  static contextTypes = {
-    tunnelState: PropTypes.object,
-  }
+  static contextType = TunnelContext
 
   itemId = uniqueId()
 

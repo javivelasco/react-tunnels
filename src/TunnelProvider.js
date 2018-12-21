@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
-import { Children, Component } from 'react'
+import React, { Children, Component } from 'react'
+import { TunnelContext } from './context'
 import TunnelState from './TunnelState'
 
 class TunnelProvider extends Component {
@@ -7,20 +8,14 @@ class TunnelProvider extends Component {
     children: PropTypes.node,
   }
 
-  static childContextTypes = {
-    tunnelState: PropTypes.object,
-  }
-
-  tunnelState = new TunnelState()
-
-  getChildContext() {
-    return {
-      tunnelState: this.tunnelState,
-    }
-  }
+  tunnelState = { tunnelState: new TunnelState() }
 
   render() {
-    return Children.only(this.props.children)
+    return (
+      <TunnelContext.Provider value={this.tunnelState}>
+        {Children.only(this.props.children)}
+      </TunnelContext.Provider>
+    )
   }
 }
 
